@@ -1,0 +1,79 @@
+.flex{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.wrapper{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.settingsBlock{
+    transition: 0.2s linear;
+    width: 75%;
+    height: 400px;
+    background-color: whitesmoke;
+    border-radius: 15px;
+}
+.allSteps{
+    display: flex;
+    transition: 0.2s linear;
+    width: 300%;
+    height: 400px;
+    overflow: hidden;
+}
+.step1,.step2,.step3{
+    display: inline-block;
+    z-index: 2;
+    flex-shrink: 0;
+    flex-basis: 33.3%;
+    height: 100%;
+}
+.disable{
+    opacity: 0;
+}
+.step1Title{
+    color: #484848;
+}
+.step1Items,.step2Items{
+    position: relative;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.step3Items{
+    height: 70%;
+}
+.step1Items div, .step2Items div{
+    outline: none;
+    cursor: pointer;
+    width: 100px;
+    border:1px solid #ccc;
+    border-radius: 15px;
+    padding: 12px 15px;
+    box-shadow: 2px 2px 8px #ccc;
+}
+.backButton{
+    position: absolute;
+    bottom: 10px;
+    padding: 5px 10px;
+    color: #fff;
+    border-radius: 8px;
+    background-color: #484848;
+}
+.startButton{
+
+    padding: 10px 15px;
+    background-color: cornflowerblue;
+    width: 75px;
+    border-radius: 10px;
+    bottom: 0;
+    margin: 0 auto;
+}
