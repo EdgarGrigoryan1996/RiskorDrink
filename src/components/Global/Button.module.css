@@ -1,0 +1,16 @@
+.button{
+    outline: none;
+    cursor: pointer;
+    min-width: 75px;
+    max-width: 200px;
+    border:1px solid #ccc;
+    border-radius: 15px;
+    padding: 8px 10px;
+    box-shadow: 2px 2px 8px #ccc;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

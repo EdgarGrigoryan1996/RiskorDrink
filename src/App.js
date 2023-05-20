@@ -3,6 +3,7 @@ import './App.css';
 import {useSelector} from "react-redux";
 import Settings from "./components/Settings/Settings";
 import StartGame from "./components/StartGame/StartGame";
+import SettingsTab from "./components/Settings/SettingsTab";
 
 function App() {
     const settingsPopupStatus = useSelector((state) => {
@@ -14,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-        {settingsPopupStatus && <Settings />}
+        {settingsPopupStatus && <SettingsTab />}
         {gameSettings.gameStarted &&  <StartGame players={gameSettings.players}/>}
 
     </div>

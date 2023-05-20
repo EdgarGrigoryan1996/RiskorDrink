@@ -16,31 +16,69 @@
 .settingsBlock{
     transition: 0.2s linear;
     width: 75%;
-    height: 400px;
+    overflow: hidden;
+    height: 550px;
     background-color: whitesmoke;
     border-radius: 15px;
 }
-.allSteps{
-    display: flex;
-    transition: 0.2s linear;
-    width: 300%;
-    height: 400px;
-    overflow: hidden;
+/*.allSteps{*/
+/*    display: flex;*/
+/*    transition: 0.2s linear;*/
+/*    width: 400%;*/
+/*    height: 400px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+.tab{
+    padding: 15px;
+    width: 25%;
+    background-color: #484848;
+    border:none;
+    border-left: 1px solid rgba(0,0,0,0.5);
+    color:#fff;
 }
-.step1,.step2,.step3{
+.tab:first-child{
+    border-left: none;
+}
+.activeTab{
+    color: #464646;
+    background-color: whitesmoke;
+}
+.modes{
+    outline: none;
+    cursor: pointer;
+    min-width: 100px;
+    border:1px solid #ccc;
+    border-radius: 15px;
+    padding: 12px 15px;
+    box-shadow: 2px 2px 8px #ccc;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.selected{
+    border: 1px solid limegreen;
+    box-shadow: 1px 1px 15px limegreen;
+    background-color: limegreen;
+    color: white;
+}
+
+.step1,.step2,.step3,.step4{
     display: inline-block;
     z-index: 2;
     flex-shrink: 0;
-    flex-basis: 33.3%;
+    flex-basis: 25%;
     height: 100%;
 }
-.disable{
-    opacity: 0;
-}
+
 .step1Title{
     color: #484848;
 }
-.step1Items,.step2Items{
+.step1Items,.step2Items,.step3Items{
     position: relative;
     height: 80%;
     display: flex;
@@ -48,32 +86,42 @@
     justify-content: space-around;
     align-items: center;
 }
-.step3Items{
-    height: 70%;
-}
-.step1Items div, .step2Items div{
-    outline: none;
-    cursor: pointer;
-    width: 100px;
-    border:1px solid #ccc;
-    border-radius: 15px;
-    padding: 12px 15px;
-    box-shadow: 2px 2px 8px #ccc;
-}
-.backButton{
-    position: absolute;
-    bottom: 10px;
-    padding: 5px 10px;
-    color: #fff;
-    border-radius: 8px;
-    background-color: #484848;
-}
-.startButton{
 
-    padding: 10px 15px;
-    background-color: cornflowerblue;
-    width: 75px;
-    border-radius: 10px;
-    bottom: 0;
-    margin: 0 auto;
+
+
+.hidden{
+    opacity: 0;
+}
+.buttonBlock div{
+    max-width: 200px;
+    margin: 0 auto 20px auto;
+}
+.addPlayer input{
+    width: 80%;
+    padding: 10px;
+    outline: none;
+    border: none;
+    background: whitesmoke;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+}
+.addPlayer input:focus{
+    border-bottom: 1px solid limegreen;
+}
+.players{
+    margin-bottom: 15px;
+    max-height: 200px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.players div{
+    width: 200px;
+    margin: 10px 0;
+    border:1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 1px 1px 10px #ccc;
 }

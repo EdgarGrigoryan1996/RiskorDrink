@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     settingsPopup:true,
+    startResultPopup:false,
 };
 
 
@@ -11,11 +12,14 @@ export const popupsStatusSlice = createSlice({
     reducers: {
         setStatusFalse: (state) => {
           state.settingsPopup = false
+        },
+        setStartResultPopupStatus: (state,action) => {
+            state.startResultPopup = action.payload.status
         }
     },
 });
 
-export const { setStatusFalse } = popupsStatusSlice.actions;
+export const { setStatusFalse,setStartResultPopupStatus } = popupsStatusSlice.actions;
 
 
 

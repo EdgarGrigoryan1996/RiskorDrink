@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import s from "./Settings.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import {addPlayer, setGameMode, setGenderPlayers, startGame} from "../../features/gameSettings/gameSettingsSlice";
+import {
+    addPlayer,
+    setGameMode,
+    setGenderPlayers,
+    setIsManualGameMode,
+    startGame
+} from "../../features/gameSettings/gameSettingsSlice";
 import {doings} from "../../doings/doings";
 import {setStatusFalse} from "../../features/popupsStatus/popupsStatusSlice";
 
@@ -15,13 +21,12 @@ function Settings(props) {
     const dispatch = useDispatch()
     const [name, setName] = useState("")
     const [currentSlide, setCurrentSlide] = useState(0);
-
     const handleNextSlide = () => {
-        setCurrentSlide((prevSlide) => (prevSlide === 2 ? 0 : prevSlide + 1));
+        setCurrentSlide((prevSlide) => (prevSlide === 3 ? 0 : prevSlide + 1));
     };
 
     const handlePrevSlide = () => {
-        setCurrentSlide((prevSlide) => (prevSlide === 0 ? 2 : prevSlide - 1));
+        setCurrentSlide((prevSlide) => (prevSlide === 0 ? 3 : prevSlide - 1));
     };
     const handleAddPlayer = () => {
         if(name === ""){
@@ -38,12 +43,13 @@ function Settings(props) {
         dispatch(setStatusFalse())
         dispatch(startGame())
     }
+    console.log(gameSettings)
     return (
         <div className={s.wrapper}>
             <div className={s.settingsBlock}>
                 <div
                     className={s.allSteps}
-                    style={{ transform: `translateX(-${currentSlide * 33}%)` }}
+                    style={{ transform: `translateX(-${currentSlide * 25}%)` }}
                 >
                     <div className={s.step1 + " " + (currentSlide === 0 ? s.active : s.disable)}>
                         <div className={s.step1Title}>
@@ -53,7 +59,7 @@ function Settings(props) {
                             <div onClick={() => {
                                 handleNextSlide()
                                 dispatch(setGameMode({
-                                    mode:doings.childrens
+                                    mode:doings.children
                                 }))
                             }
                             }>Մանկական</div>
@@ -106,9 +112,33 @@ function Settings(props) {
 
                     <div className={s.step3 + " " + (currentSlide === 2 ? s.active : s.disable)}>
                         <div className={s.step1Title}>
-                            <h2>Մասնակիցներ</h2>
+                            <h2>Online / Տեղում</h2>
                         </div>
                         <div className={s.step3Items}>
+                            <div onClick={() => {
+                                handleNextSlide()
+                                dispatch(setIsManualGameMode({
+                                    mode:false,
+                                }))
+                            }
+                            }>Online</div>
+                            <div onClick={() => {
+                                handleNextSlide()
+                                dispatch(setIsManualGameMode({
+                                    mode:true,
+                                }))
+                            }
+                            }>Տեղում</div>
+
+                        </div>
+                        <div className={s.backButton} onClick={handlePrevSlide}>Ետ</div>
+                    </div>
+
+                    <div className={s.step4 + " " + (currentSlide === 3 ? s.active : s.disable)}>
+                        <div className={s.step4Title}>
+                            <h2>Մասնակիցներ</h2>
+                        </div>
+                        <div className={s.step4Items}>
                             <div className={s.addPlayer}>
                                 <input
                                     type="text"
@@ -143,6 +173,7 @@ function Settings(props) {
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
