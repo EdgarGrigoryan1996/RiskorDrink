@@ -4,8 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {setStatusFalse} from "../../../features/popupsStatus/popupsStatusSlice";
 import {addPlayer, startGame} from "../../../features/gameSettings/gameSettingsSlice";
 import Button from "../../Global/Button";
+import {useTranslation} from "react-i18next";
 
 function Tab4Component(props) {
+    const {t, i18n} = useTranslation()
     const dispatch = useDispatch()
 
     const gameSettings = useSelector((state) => {
@@ -35,20 +37,20 @@ function Tab4Component(props) {
         <>
             <div className={s.step4}>
                 <div className={s.step4Title}>
-                    <h2>Մասնակիցներ</h2>
+                    <h2>{t("settings.step4.title")}</h2>
                 </div>
                 <div className={s.step4Items}>
                     <div className={s.addPlayer}>
                         <input
                             type="text"
-                            placeholder={"Անուն"}
+                            placeholder={t("settings.step4.placeholder")}
                             value={name}
                             onChange={(e) => {
                                 setName(e.target.value)
                             }
                             }/>
                         <div className={s.buttonBlock}>
-                            <Button text={"Ավելացնել"} onclick={handleAddPlayer} background={"#4b9555"} color={"#fff"}/>
+                            <Button text={t("settings.step4.addButton")} onclick={handleAddPlayer} background={"#4b9555"} color={"#fff"}/>
                         </div>
                     </div>
                     <div className={s.flex}>
@@ -63,7 +65,7 @@ function Tab4Component(props) {
                 </div>
             </div>
             <div className={gameSettings.players.length > 1 ? s.buttonBlock : s.hidden}>
-                <Button text={"Սկսել"} background={"#547888"} color={"#fff"} onclick={handleStartGame}/>
+                <Button text={t("settings.step4.startButton")} background={"#547888"} color={"#fff"} onclick={handleStartGame}/>
             </div>
         </>
     );

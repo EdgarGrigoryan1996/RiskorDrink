@@ -40,7 +40,7 @@ function StartGame(props) {
             dispatch(setCurrentPlayerNormalDoing())
             dispatch(removeChecks())
         }
-        console.log(currentPlayers)
+        console.log(gameSettings)
     }
     return (
         <>

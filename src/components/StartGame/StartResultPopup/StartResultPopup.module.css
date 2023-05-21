@@ -17,9 +17,7 @@
     background-color: whitesmoke;
     border-radius: 15px;
 }
-.close{
-    margin: 15px auto 0 auto;
-}
+
 .players{
     height: 85%;
     display: flex;
@@ -56,4 +54,12 @@
 .doingSuccess svg{
     font-size: 36px;
     margin: 25px 15px 0 15px;
+}
+.disabledButtons{
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.close{
+    margin: 15px auto 0 auto;
 }

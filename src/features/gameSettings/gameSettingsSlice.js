@@ -12,6 +12,8 @@ const initialState = {
             isChecked:false,
             disabled:false,
             currentDoing:null,
+            doneDoings:[],
+            cancelDoings:[],
         }
     ],
     currentPlayers:[]
@@ -39,6 +41,8 @@ export const gameSettingsSlice = createSlice({
                 isChecked:false,
                 disabled:false,
                 currentDoing:null,
+                doneDoings:[],
+                cancelDoings:[],
             })
         },
         startGame: (state) => {
@@ -113,7 +117,45 @@ export const gameSettingsSlice = createSlice({
                     currentDoing:state.gameMode.extra[Math.floor(Math.random() * state.gameMode.extra.length)]
                 }
             })
+        },
+        addDoneDoing: (state,action) => {
+            state.players = state.players.map((player) => {
+                if(player.id === action.payload.playerId){
+                    return {
+                        ...player,
+                        doneDoings:[...player.doneDoings,action.payload.doing]
+                    }
+                } else {
+                    return player
+                }
+            })
+        },
+        addCancelDoing: (state,action) => {
+            state.players = state.players.map((player) => {
+                if(player.id === action.payload.playerId){
+                    return {
+                        ...player,
+                        cancelDoings:[...player.cancelDoings,action.payload.doing]
+                    }
+                } else {
+                    return player
+                }
+            })
+        },
+        removeDoingFromList: (state,action) => {
+            if(action.payload.extraMode){
+                let index = state.gameMode.extra.indexOf(action.payload.doing)
+                state.gameMode.extra = state.gameMode.extra.filter((doing,i) => {
+                    return i !== index
+                })
+            } else {
+                let index = state.gameMode.normal.indexOf(action.payload.doing)
+                state.gameMode.normal = state.gameMode.normal.filter((doing,i) => {
+                    return i !== index
+                })
+            }
         }
+
 
 
     },
@@ -131,7 +173,10 @@ export const {
     addCurrentPlayer,
     resetCurrentPlayers,
     setCurrentPlayerNormalDoing,
-    setCurrentPlayerExtraDoing
+    setCurrentPlayerExtraDoing,
+    addDoneDoing,
+    addCancelDoing,
+    removeDoingFromList
 } = gameSettingsSlice.actions;
 
 export default gameSettingsSlice.reducer;

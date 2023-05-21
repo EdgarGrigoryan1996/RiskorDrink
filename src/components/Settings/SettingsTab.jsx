@@ -1,49 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useTransition} from 'react';
 import s from "./Settings.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {
     addPlayer,
-    setGameMode,
-    setGenderPlayers,
-    setIsManualGameMode,
     startGame
 } from "../../features/gameSettings/gameSettingsSlice";
-import {doings} from "../../doings/doings";
 import {setStatusFalse} from "../../features/popupsStatus/popupsStatusSlice";
 import Tab1Component from "./Tabs/Tab1Component";
 import Tab2Component from "./Tabs/Tab2Component";
 import Tab3Component from "./Tabs/Tab3Component";
 import Tab4Component from "./Tabs/Tab4Component";
 import Button from "../Global/Button";
+import {FaHotjar} from "react-icons/fa";
+import {BiMaleFemale} from "react-icons/bi";
+import {GiAutoRepair} from "react-icons/gi";
+import {AiOutlineUsergroupAdd} from "react-icons/ai";
+import {useTranslation} from "react-i18next";
 
 function Settings(props) {
-    const gameSettings = useSelector((state) => {
-        return state.gameSettings
-    })
-    const players = useSelector((state) => {
-        return state.gameSettings.players
-    })
-    const dispatch = useDispatch()
-    const [name, setName] = useState("")
-
-    const handleAddPlayer = () => {
-        if(name === ""){
-            alert("Անունը պարտադիր է")
-        } else {
-            dispatch(addPlayer({
-                name:name,
-            }))
-            setName("")
-        }
-
-    }
-    const handleStartGame = () => {
-        dispatch(setStatusFalse())
-        dispatch(startGame())
-    }
-    console.log(gameSettings)
-
-    //Tabs
+    const {t, i18n} = useTranslation()
+    const currentLang = i18n.language
     const [tabIndex, setTabIndex] = useState(0);
 
     const handleNextTabClick = () => {
@@ -51,15 +27,26 @@ function Settings(props) {
             setTabIndex(tabIndex+1);
         }
     };
+
     return (
         <div className={s.wrapper}>
             <div className={s.settingsBlock}>
                 <div className={s.flex}>
-                    <div className="tab-buttons">
-                        <button className={tabIndex === 0 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(0)}>Tab 1</button>
-                        <button className={tabIndex === 1 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(1)}>Tab 2</button>
-                        <button className={tabIndex === 2 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(2)}>Tab 3</button>
-                        <button className={tabIndex === 3 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(3)}>Tab 4</button>
+                    <div className={s.tabButtons}>
+                        <div className={tabIndex === 0 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(0)}><FaHotjar/></div>
+                        <div className={tabIndex === 1 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(1)}><BiMaleFemale /></div>
+                        <div className={tabIndex === 2 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(2)}><GiAutoRepair /></div>
+                        <div className={tabIndex === 3 ? s.activeTab + " " + s.tab : s.tab} onClick={() => setTabIndex(3)}><AiOutlineUsergroupAdd /></div>
+                    </div>
+                    <div className={s.lang}>
+                        <div className={currentLang === "am" && s.activeLang} onClick={() => {
+                            i18n.changeLanguage("am")
+                        }
+                        }>Am</div>
+                        <div className={currentLang === "ru" && s.activeLang} onClick={() => {
+                            i18n.changeLanguage("ru")
+                        }
+                        }>Ru</div>
                     </div>
                     {tabIndex === 0 && <Tab1Component />}
                     {tabIndex === 1 && <Tab2Component />}
@@ -67,7 +54,7 @@ function Settings(props) {
                     {tabIndex === 3 && <Tab4Component />}
                     {tabIndex < 3 && (
                         <div className={s.buttonBlock}>
-                            <Button text={"Հաջորդ"} background={"#547888"} color={"#fff"} onclick={handleNextTabClick}/>
+                            <Button text={t("settings.nextButton")} background={"#547888"} color={"#fff"} onclick={handleNextTabClick}/>
                         </div>
 
                     )}

@@ -21,14 +21,13 @@
     background-color: whitesmoke;
     border-radius: 15px;
 }
-/*.allSteps{*/
-/*    display: flex;*/
-/*    transition: 0.2s linear;*/
-/*    width: 400%;*/
-/*    height: 400px;*/
-/*    overflow: hidden;*/
-/*}*/
 
+.tabButtons{
+    display: flex;
+}
+.tabButtons svg{
+    font-size: 20px;
+}
 .tab{
     padding: 15px;
     width: 25%;
@@ -44,10 +43,25 @@
     color: #464646;
     background-color: whitesmoke;
 }
+.lang{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+.lang div{
+    border:1px solid #ccc;
+    min-width: 50px;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+.lang .activeLang{
+    background: limegreen;
+    color:#fff;
+}
 .modes{
     outline: none;
     cursor: pointer;
-    min-width: 100px;
+    width: 227px;
     border:1px solid #ccc;
     border-radius: 15px;
     padding: 12px 15px;
@@ -60,6 +74,7 @@
     -ms-user-select: none;
     user-select: none;
 }
+
 .selected{
     border: 1px solid limegreen;
     box-shadow: 1px 1px 15px limegreen;
@@ -93,7 +108,7 @@
     opacity: 0;
 }
 .buttonBlock div{
-    max-width: 200px;
+    max-width: 125px;
     margin: 0 auto 20px auto;
 }
 .addPlayer input{
