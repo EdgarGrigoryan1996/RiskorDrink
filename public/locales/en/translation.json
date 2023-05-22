@@ -1,0 +1,28 @@
+{
+    "settings": {
+      "step1": {
+        "title": "Game level",
+        "option1": "For fun",
+        "option2": "For adult",
+        "option3": "For crazy ones"
+      },
+      "step2": {
+        "title": "Game group",
+        "option1": "Girls and Boys",
+        "option2": "Only boys",
+        "option3": "Only girls"
+      },
+      "step3": {
+        "title": "Game Type",
+        "option1": "Play online",
+        "option2": "Play by your own rules"
+      },
+      "step4": {
+        "title": "Participants",
+        "placeholder": "Name",
+        "addButton": "Add",
+        "startButton": "Start"
+      },
+      "nextButton": "Next"
+    }
+  }

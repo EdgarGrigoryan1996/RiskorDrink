@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./StartResultPopup.module.css"
 import Button from "../../Global/Button";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,10 +10,12 @@ import {
     resetCurrentPlayers
 } from "../../../features/gameSettings/gameSettingsSlice";
 import {MdDone} from "react-icons/md";
-import {TiCancel} from "react-icons/ti";
+import {BiDrink} from "react-icons/bi";
 
 function StartResultPopup(props) {
     const dispatch = useDispatch()
+
+    const [blockStatus, setBlockStatus] = useState(false)
 
     const currentPlayers = useSelector((state) => {
         return state.gameSettings.currentPlayers
@@ -28,7 +30,6 @@ function StartResultPopup(props) {
         dispatch(resetCurrentPlayers())
     }
     const doneDoing = (playerId,doing) => {
-        console.log("Added")
         dispatch(addDoneDoing({
             playerId,
             doing
@@ -48,8 +49,14 @@ function StartResultPopup(props) {
 
     }
 
+    useEffect(() => {
+        if(currentPlayers.length === buttonsStatus.length){
+            closePopup()
+        }
+        setBlockStatus(true)
+    },[buttonsStatus])
+
     const cancelDoing = (playerId,doing) => {
-        console.log("AddedCancel")
         dispatch(addCancelDoing({
             playerId,
             doing
@@ -58,7 +65,7 @@ function StartResultPopup(props) {
     }
     return (
         <div className={s.wrapper}>
-            <div className={s.resultBlock}>
+            <div className={s.resultBlock + " " + (blockStatus && s.resultBlockActive)}>
 
                 <div className={s.players}>
                     {props.currentPlayers.map((player) => {
@@ -68,19 +75,19 @@ function StartResultPopup(props) {
                                 <div className={s.doing}>{player.currentDoing}</div>
                                 <div className={s.doingSuccess + " " + (buttonsStatus.includes(player.id) && s.disabledButtons)}>
                                     <span onClick={() => doneDoing(player.id,player.currentDoing)}><MdDone color={"green"}/></span>
-                                    <span onClick={() => cancelDoing(player.id,player.currentDoing)}> <TiCancel color={"rgba(211,41,41,0.7)"}/></span>
+                                    <span onClick={() => cancelDoing(player.id,player.currentDoing)}> <BiDrink color={"rgba(211,41,41,0.7)"}/></span>
                                 </div>
                             </div>
                         )
                     })}
                 </div>
-                <Button
+                {/* <Button
                     className={s.close + " " + (currentPlayers.length !== buttonsStatus.length && s.disabledButtons)}
                     text={"Փակել"}
                     background={"rgba(208,62,62,0.7)"}
                     color={"#fff"}
                     onclick={closePopup}
-                />
+                /> */}
 
 
             </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 import {useSelector} from "react-redux";
-import Settings from "./components/Settings/Settings";
 import StartGame from "./components/StartGame/StartGame";
 import SettingsTab from "./components/Settings/SettingsTab";
 

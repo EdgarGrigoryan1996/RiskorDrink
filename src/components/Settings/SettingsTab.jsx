@@ -1,11 +1,5 @@
-import React, {useState, useTransition} from 'react';
+import React, {useState} from 'react';
 import s from "./Settings.module.css"
-import {useDispatch, useSelector} from "react-redux";
-import {
-    addPlayer,
-    startGame
-} from "../../features/gameSettings/gameSettingsSlice";
-import {setStatusFalse} from "../../features/popupsStatus/popupsStatusSlice";
 import Tab1Component from "./Tabs/Tab1Component";
 import Tab2Component from "./Tabs/Tab2Component";
 import Tab3Component from "./Tabs/Tab3Component";
@@ -47,6 +41,10 @@ function Settings(props) {
                             i18n.changeLanguage("ru")
                         }
                         }>Ru</div>
+                        <div className={currentLang === "en" && s.activeLang} onClick={() => {
+                            i18n.changeLanguage("en")
+                        }
+                        }>En</div>
                     </div>
                     {tabIndex === 0 && <Tab1Component />}
                     {tabIndex === 1 && <Tab2Component />}

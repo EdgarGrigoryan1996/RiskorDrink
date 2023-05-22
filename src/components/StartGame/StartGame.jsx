@@ -6,7 +6,9 @@ import Button from "../Global/Button";
 import {
     removeChecks,
     setCurrentPlayerExtraDoing,
-    setCurrentPlayerNormalDoing
+    setCurrentPlayerNormalDoing,
+    checkPLayer,
+    addCurrentPlayer
 } from "../../features/gameSettings/gameSettingsSlice";
 import StartResultPopup from "./StartResultPopup/StartResultPopup";
 import {setStartResultPopupStatus} from "../../features/popupsStatus/popupsStatusSlice";
@@ -26,27 +28,55 @@ function StartGame(props) {
         if(currentPlayers.length === 0){
             alert("Check Players")
         } else if (currentPlayers.length === 1) {
-            alert("extra")
             dispatch(setStartResultPopupStatus({
                 status:true
             }))
             dispatch(setCurrentPlayerExtraDoing())
             dispatch(removeChecks())
         } else {
-            alert("Standard")
             dispatch(setStartResultPopupStatus({
                 status:true
             }))
             dispatch(setCurrentPlayerNormalDoing())
             dispatch(removeChecks())
         }
-        console.log(gameSettings)
+
+    }
+    function startGameAuto(){
+
+        const player1 = gameSettings.players[Math.floor(Math.random() * gameSettings.players.length)]
+        const player2 = gameSettings.players[Math.floor(Math.random() * gameSettings.players.length)]
+    
+        if(player1 !== player2){
+            dispatch(checkPLayer({
+                id:player1.id
+            }))
+            dispatch(checkPLayer({
+                id:player2.id
+            }))
+            dispatch(addCurrentPlayer())
+            dispatch(setStartResultPopupStatus({
+                status:true
+            }))
+            dispatch(setCurrentPlayerNormalDoing())
+            dispatch(removeChecks())
+        } else {
+            dispatch(checkPLayer({
+                id:player1.id
+            }))
+            dispatch(addCurrentPlayer())
+            dispatch(setStartResultPopupStatus({
+                status:true
+            }))
+            dispatch(setCurrentPlayerExtraDoing())
+            dispatch(removeChecks())
+        }
     }
     return (
         <>
-            {popups.startResultPopup && <StartResultPopup currentPlayers={currentPlayers}/>}
+            {popups.startResultPopup && <StartResultPopup status={popups.startResultPopup} currentPlayers={currentPlayers}/>}
             <div className={s.startBlock}>
-                <div><Button text={"Start"} background={"#555"} color={"#fff"} onclick={startGame}/></div>
+                <div><Button text={"Start"} background={"#555"} color={"#fff"} onclick={gameSettings.isGameManual ? startGame : startGameAuto}/></div>
                 <div>
                     <Players players={props.players} isGameManual={gameSettings.isGameManual}/>
                 </div>

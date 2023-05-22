@@ -7,15 +7,17 @@ import {useTranslation} from "react-i18next";
 
 
 function Tab1Component(props) {
+    
     const dispatch = useDispatch()
     const {t, i18n} = useTranslation()
     const [selectedMode, setSelectedMode] = useState(1)
+
     useEffect(() => {
         dispatch(setGameMode({
             mode:doings.children
         }))
     },[])
-    console.log(props.lang)
+
     return (
         <div>
             <div className={s.step1}>
