@@ -1,6 +1,6 @@
 export const doings = {
     children:{
-        normal:["mankakan","erexaner","erexeq","man","mankakan555","mankakakna678"],
+        normal:["mankakan","erexaner","erexeq","man","mankakan555","mankakakna678","Puchikner puchikner puchikner :)"],
         extra:["Extra","Extra2","Extra3"]
     },
     standard:{

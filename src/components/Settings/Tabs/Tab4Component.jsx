@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import s from "../Settings.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {setStatusFalse} from "../../../features/popupsStatus/popupsStatusSlice";
-import {addPlayer, startGame} from "../../../features/gameSettings/gameSettingsSlice";
+import {addPlayer, removePlayer, startGame} from "../../../features/gameSettings/gameSettingsSlice";
 import Button from "../../Global/Button";
 import {useTranslation} from "react-i18next";
 
 function Tab4Component(props) {
     const {t, i18n} = useTranslation()
     const dispatch = useDispatch()
+
+    const addPlayerRef = useRef(null)
 
     const gameSettings = useSelector((state) => {
         return state.gameSettings
@@ -25,7 +27,13 @@ function Tab4Component(props) {
             }))
             setName("")
         }
+        addPlayerRef.current.focus()
 
+    }
+    const handleRemovePLayer = (id) => {
+        dispatch(removePlayer({
+            id
+        }))
     }
 
     const handleStartGame = () => {
@@ -43,6 +51,7 @@ function Tab4Component(props) {
                     <div className={s.addPlayer}>
                         <input
                             type="text"
+                            ref={addPlayerRef}
                             placeholder={t("settings.step4.placeholder")}
                             value={name}
                             onChange={(e) => {
@@ -57,7 +66,11 @@ function Tab4Component(props) {
                         <div className={s.players}>
                             {gameSettings.players.map((player,i) => {
                                 return (
-                                    <div key={player.name + i}>{player.name}</div>
+
+                                        <div key={player.name + i}> {player.name}<span onClick={() => handleRemovePLayer(player.id)}>X</span></div>
+
+
+
                                 )
                             })}
                         </div>

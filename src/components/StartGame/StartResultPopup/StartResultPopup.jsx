@@ -34,7 +34,10 @@ function StartResultPopup(props) {
             playerId,
             doing
         }))
-        setButtonsStatus([...buttonsStatus,playerId])
+        setButtonsStatus([...buttonsStatus, {
+            id:playerId,
+            event:"done"
+            }])
         if(currentPlayers.length === 1){
             dispatch(removeDoingFromList({
                 extraMode:true,
@@ -48,6 +51,16 @@ function StartResultPopup(props) {
         }
 
     }
+    const cancelDoing = (playerId,doing) => {
+        dispatch(addCancelDoing({
+            playerId,
+            doing
+        }))
+        setButtonsStatus([...buttonsStatus,{
+            id:playerId,
+            event:"cancel"
+        }])
+    }
 
     useEffect(() => {
         if(currentPlayers.length === buttonsStatus.length){
@@ -56,26 +69,20 @@ function StartResultPopup(props) {
         setBlockStatus(true)
     },[buttonsStatus])
 
-    const cancelDoing = (playerId,doing) => {
-        dispatch(addCancelDoing({
-            playerId,
-            doing
-        }))
-        setButtonsStatus([...buttonsStatus,playerId])
-    }
+
     return (
         <div className={s.wrapper}>
             <div className={s.resultBlock + " " + (blockStatus && s.resultBlockActive)}>
 
                 <div className={s.players}>
-                    {props.currentPlayers.map((player) => {
+                    {props.currentPlayers.map((player,i) => {
                         return (
                             <div key={player.id} className={currentPlayers.length > 1 ? s.currentPlayerBlock : s.currentExtraPlayerBlock}>
                                 <div className={s.name}>{player.name}</div>
                                 <div className={s.doing}>{player.currentDoing}</div>
-                                <div className={s.doingSuccess + " " + (buttonsStatus.includes(player.id) && s.disabledButtons)}>
-                                    <span onClick={() => doneDoing(player.id,player.currentDoing)}><MdDone color={"green"}/></span>
-                                    <span onClick={() => cancelDoing(player.id,player.currentDoing)}> <BiDrink color={"rgba(211,41,41,0.7)"}/></span>
+                                <div className={s.doingSuccess + " " + (buttonsStatus.filter((status) => status.id === player.id).length > 0 && s.disabledButtons)}>
+                                    <span className={buttonsStatus.filter((status) => status.event === "done" && status.id === player.id).length > 0 && s.selectedEvent} onClick={() => doneDoing(player.id,player.currentDoing)}><MdDone color={"green"}/></span>
+                                    <span className={buttonsStatus.filter((status) => status.event === "cancel" && status.id === player.id ).length > 0 && s.selectedEvent} onClick={() => cancelDoing(player.id,player.currentDoing)}> <BiDrink color={"rgb(213,56,56)"}/></span>
                                 </div>
                             </div>
                         )

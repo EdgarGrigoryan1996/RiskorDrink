@@ -27,11 +27,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 10px;
+    gap: 2px;
 
 }
 .currentPlayerBlock{
-    height: 49%;
+    height: 49.5%;
     padding: 15px;
     background-color: orange;
     display: flex;
@@ -57,6 +57,9 @@
     color: #484848;
 }
 .doingSuccess svg{
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 50%;
     font-size: 36px;
     margin: 25px 15px 0 15px;
 }
@@ -64,6 +67,10 @@
     pointer-events: none;
     opacity: 0.5;
     cursor: not-allowed;
+}
+.selectedEvent svg{
+    background: limegreen;
+    box-shadow: 3px 3px 15px #fff;
 }
 .close{
     margin: 15px auto 0 auto;

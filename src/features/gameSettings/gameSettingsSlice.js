@@ -1,5 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+function getRandomDoingForPlayerTwo(state,indexOne){
+    let indexTwo = Math.floor(Math.random() * state.gameMode.normal.length)
+    if(indexTwo === indexOne){
+        return getRandomDoingForPlayerTwo(state,indexOne)
+    } else {
+        return indexTwo
+    }
+}
 const initialState = {
     gameStarted:false,
     gameMode:null,
@@ -43,6 +50,11 @@ export const gameSettingsSlice = createSlice({
                 currentDoing:null,
                 doneDoings:[],
                 cancelDoings:[],
+            })
+        },
+        removePlayer: (state,action) => {
+            state.players = state.players.filter((player) => {
+                return player.id !== action.payload.id
             })
         },
         startGame: (state) => {
@@ -103,11 +115,21 @@ export const gameSettingsSlice = createSlice({
             state.currentPlayers = []
         },
         setCurrentPlayerNormalDoing: (state) => {
-            state.currentPlayers = state.currentPlayers.map((player) => {
-                return {
-                    ...player,
-                    currentDoing:state.gameMode.normal[Math.floor(Math.random() * state.gameMode.normal.length)]
+            let randomIndexOne = Math.floor(Math.random() * state.gameMode.normal.length)
+            let randomIndexTwo = getRandomDoingForPlayerTwo(state,randomIndexOne)
+            state.currentPlayers = state.currentPlayers.map((player,i) => {
+                if(i === 0){
+                    return {
+                        ...player,
+                        currentDoing:state.gameMode.normal[randomIndexOne]
+                    }
+                } else {
+                    return {
+                        ...player,
+                        currentDoing:state.gameMode.normal[randomIndexTwo]
+                    }
                 }
+
             })
         },
         setCurrentPlayerExtraDoing: (state) => {
@@ -163,6 +185,7 @@ export const gameSettingsSlice = createSlice({
 
 export const {
     addPlayer,
+    removePlayer,
     setGameMode,
     startGame,
     setGenderPlayers,
